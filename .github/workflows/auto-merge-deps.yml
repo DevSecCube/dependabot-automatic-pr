@@ -1,5 +1,9 @@
 name: Auto-merge dependency updates
 
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
   pull_request:
     types: [opened, synchronize]
@@ -25,8 +29,10 @@ jobs:
 
       - name: Run security scan
         run: |
-          pip install safety
-          safety check --json
+          # Run Semgrep with auto-config (detects language and applies relevant rules)
+          semgrep --config=auto --error --json --output=semgrep-results.json app/
+          # Additional security-focused ruleset for thorough scanning
+          semgrep --config=p/security-audit --error app/
 
       - name: Run tests
         run: |
