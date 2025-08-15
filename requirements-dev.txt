@@ -2,4 +2,4 @@ pytest==8.4.1
 pytest-cov==6.2.1
 black==25.1.0
 flake8==7.3.0
-semgrep==1.131.0
+semgrep==1.132.1
